@@ -1,28 +1,46 @@
-# Tushare
+# tushare-ruby简介
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tushare`. To experiment with that code, run `bin/console` for an interactive prompt.
+这是Ruby版本的[Tushare](https://github.com/waditu/tushare)。
 
-TODO: Delete this and the text above, and describe your gem
+TuShare是实现对中国A股等股票/期货等金融数据从数据采集、清洗加工到数据存储过程的工具，满足金融量化分析师和学习数据分析的人在数据获取方面的需求，它的特点是数据覆盖范围广，接口调用简单,响应快速。
 
-## Installation
+## 安装
 
-Add this line to your application's Gemfile:
+在应用的Gemfile中添加:
 
 ```ruby
 gem 'tushare'
 ```
 
-And then execute:
+然后运行:
 
     $ bundle
 
-Or install it yourself as:
+或者通过以下命令行手动安装:
 
     $ gem install tushare
 
-## Usage
+## 用法
+```ruby
+require "tushare"
+```
+### 行情
+```ruby
+stock = Tushare::Stock::Trading
+stock.get_hist_data('300027') #返回日线，300027是A股代码
+stock.get_hist_data('600848', ktype: '5') #返回5分钟钱
+stock.get_hist_data("002606", start_date: "2016-02-01", end_date: "2016-03-11") #返回指定时期的K线
+stock.get_today_all #一次性获取最近一个日交易日所有股票的交易数据
+stock.get_index #获取大盘指数行情
+```
 
-TODO: Write usage instructions here
+### 列表
+```ruby
+l = Tushare::Stock::Classifying
+l.industry_classified #A股板块和成份股 行业块
+l.terminated #退市
+l.suspended #停牌
+```
 
 ## Development
 
